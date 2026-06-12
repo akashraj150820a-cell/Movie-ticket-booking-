@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Movie Ticket Booking</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#0f172a;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+height:100vh;
+}
+
+.container{
+
+width:350px;
+
+background:#1e293b;
+
+padding:25px;
+
+border-radius:15px;
+
+text-align:center;
+
+color:white;
+
+border:2px solid transparent;
+
+transition:0.4s;
+
+}
+
+
+.container:hover{
+
+border:2px solid #22c55e;
+
+box-shadow:
+0 0 20px #22c55e;
+
+}
+
+
+
+
+
+
+
+h1{
+margin-bottom:20px;
+}
+
+select{
+
+width:100%;
+
+padding:10px;
+
+margin-bottom:20px;
+
+border-radius:8px;
+
+border:none;
+
+}
+
+.screen{
+height:100px;
+background:white;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+color:black;
+font-size:24px;
+font-weight:bold;
+
+margin-bottom:20px;
+border-radius:10px;
+}
+
+.screen:hover{
+
+border:2px solid #22c55e;
+
+box-shadow:
+0 0 20px #22c55e;
+
+}
+
+
+
+
+.seats{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:10px;
+
+}
+
+
+.movie:hover{
+
+border:2px solid #22c55e;
+
+box-shadow:
+0 0 20px #22c55e;
+
+}
+
+
+
+
+.seat{
+
+height:50px;
+
+background:gray;
+
+border-radius:10px;
+
+cursor:pointer;
+
+border:2px solid transparent;
+
+transition:0.3s;
+
+}
+
+
+.seat:hover{
+
+border:2px solid grey;
+
+transform:scale(1.05);
+
+}
+
+.seat:hover{
+
+border:2px solid #22c55e;
+
+box-shadow:
+0 0 20px #22c55e;
+
+}
+
+.selected{
+
+background:green;
+
+}
+
+.info{
+
+margin-top:20px;
+
+line-height:35px;
+
+}
+
+button{
+
+padding:10px 25px;
+
+font-size:18px;
+
+background:#22c55e;
+
+color:white;
+
+border:2px solid transparent;
+
+border-radius:8px;
+
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+
+button:hover{
+
+border:2px solid white;
+
+box-shadow:
+0 0 15px white;
+
+transform:scale(1.05);
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎬 Movie Ticket</h1>
+
+<select class="movie" id="movie">
+<option value="150">Avengers - ₹150</option>
+<option value="200">Jawan - ₹200</option>
+<option value="180">KGF - ₹180</option>
+<option value="250">Dhurander - ₹250</option>
+<option value="280">Pushpa - ₹280</option>
+<option value="300">SALAAR - ₹300</option>
+</select>
+
+<div class="screen"> MOVIE SCREEN</div>
+
+<div class="seats">
+
+<div class="seat">A1</div>
+<div class="seat">A2</div>
+<div class="seat">A3</div>
+<div class="seat">A4</div>
+
+<div class="seat">B1</div>
+<div class="seat">B2</div>
+<div class="seat">B3</div>
+<div class="seat">B4</div>
+
+<div class="seat">C1</div>
+<div class="seat">C2</div>
+<div class="seat">C3</div>
+<div class="seat">C4</div>
+
+</div>
+
+<div class="info">
+
+<p>
+Selected Seats:
+<span id="count">0</span>
+</p>
+
+<p>
+Total:
+₹<span id="price">0</span>
+</p>
+
+<button onclick="bookTicket()">
+Book Now
+</button>
+
+
+<button onclick="cancelTicket()">
+cancel
+</button>
+</div>
+
+</div>
+
+<script>
+
+const seats =
+document.querySelectorAll(".seat");
+
+const movie =
+document.getElementById("movie");
+
+const count =
+document.getElementById("count");
+
+const price =
+document.getElementById("price");
+
+
+
+
+seats.forEach(seat=>{
+
+seat.addEventListener(
+"click",
+
+()=>{
+
+seat.classList.toggle(
+"selected"
+);
+
+updatePrice();
+
+}
+
+);
+
+});
+
+
+
+function updatePrice(){
+
+let selected =
+document.querySelectorAll(
+".selected"
+);
+
+count.innerText =
+selected.length;
+
+price.innerText =
+selected.length *
+Number(movie.value);
+
+
+
+
+}
+
+
+
+movie.addEventListener(
+"change",
+
+updatePrice
+
+);
+
+
+
+function bookTicket(){
+
+if(
+count.innerText==0
+){
+
+alert(
+"Please Select Seat"
+);
+
+}
+
+else{
+
+alert(
+"🎟 Ticket Booked Successfully"
+);
+
+}
+
+}
+
+
+
+function cancelTicket(){
+
+let ok =
+confirm(
+"Cancel Ticket?"
+);
+
+if(ok){
+
+document
+.querySelectorAll(".selected")
+.forEach(seat=>{
+seat.classList.remove(
+"selected"
+);
+});
+
+count.innerText=0;
+price.innerText=0;
+
+alert(
+"❌ Ticket Cancelled"
+);
+
+}
+
+}
+</script>
+
+</body>
+</html>
